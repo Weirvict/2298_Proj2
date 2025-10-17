@@ -8,6 +8,7 @@ fake = Faker()
 fake.add_provider(faker_commerce.Provider)
 
 num_rows = 15000
+rouge_percent = 0.02  # 2% rogue data
 
 def product_cats():
   products = []
@@ -47,14 +48,34 @@ def generate():
     product_category = product["product_category"]
     price = product["price"]
 
-    data.append([order_id, customer_id, customer_name, product_id, product_name, product_category, payment_type, qty, price])
+    data.append([int(order_id), customer_id, customer_name, product_id, product_name, product_category, payment_type, qty, price])
   
   return data
 
 def main():
   gen_data = generate()
   df = pd.DataFrame(gen_data, columns=["order_id", "customer_id", "customer_name", "product_id", "product_name", "product_category", "payment_type", "qty", "price"])
-  print(df.head(10))
+
+  for _ in range(int(num_rows * rouge_percent)):
+    idx = random.randint(0,len(df) - 1)
+    col = random.choice(df.columns)
+    if col == "order_id":
+      df.at[idx, col] = random.choice([None])
+    elif col == "customer_id":
+      df.at[idx, col] = random.choice([None])
+    elif col =="customer_name":
+      df.at[idx, col] = random.choice(["",None,"Undefined", "N/A","?"])
+    elif col =="prodcut_id":
+      df.at[idx, col] = random.choice([None])
+    elif col == "product_name":
+      df.at[idx, col] = random.choice(["",None,"???","@#%","Unknown"])
+    elif col =="product_category":
+      df.at[idx, col] = random.choice(["",None,"Undefined","N/A","?","$"])
+    elif col =="payment_type":
+      df.at[idx, col] = random.choice(["",None,"None","Undefined", "N/A"])
+    elif col =="price":
+      df.at[idx, col] = random.choice([0,None,-1])
+
   df.to_csv("fake_orders.csv", index=False)
 
 if __name__ == "__main__":
