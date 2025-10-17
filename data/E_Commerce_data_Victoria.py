@@ -41,29 +41,16 @@ filtered_cities = [city for city in cities if city['countrycode'] in allowed_cou
 # Create valid records
 def create_valid_record():
     city, country = get_random_city_country()
-    price = round(random.uniform(1.0, 3500.0), 2)  # Random price between 1.0 and 3500.0
-    date_time = fake.date_time_between(start_date='-10y', end_date='now')  # Random date within the last 20 years
-    return [price, date_time.strftime('%Y-%m-%d %H:%M:%S'), country, city]
+    date_time = fake.date_time_between(start_date='-10y', end_date='now')  # Random date within the last 10 years
+    return [date_time.strftime('%Y-%m-%d %H:%M:%S'), country, city]
 
 # Create rogue records
 def create_rogue_record():
-    rogue_types = ['missing_price', 'negative_price', 'bad_date', 'wrong_country', 'wrong_city']
+    rogue_types = ['bad_date', 'wrong_country', 'wrong_city']
     rtype = random.choice(rogue_types)
     city, country = get_random_city_country()
 
-    if rtype == 'missing_price':
-        # Missing price (empty string)
-        price = ' '
-        date_time = fake.date_time_between(start_date='-10y', end_date='now')
-        return [price, date_time.strftime('%Y-%m-%d %H:%M:%S'), country, city]
-    
-    elif rtype == 'negative_price': 
-        # Negative number that shouldn't exist
-        price = round(random.uniform(-3500.0, -1.0), 2)
-        date_time = fake.date_time_between(start_date='-10y', end_date='now')
-        return [price, date_time.strftime('%Y-%m-%d %H:%M:%S'), country, city]
-    
-    elif rtype == 'bad_date':
+    if rtype == 'bad_date':
         # Date that is in the future
         date_time = fake.date_time_between(start_date='-10y', end_date='now') + timedelta(days=365*30)
         price = round(random.uniform(1.0, 3500.0), 2)
@@ -82,17 +69,6 @@ def create_rogue_record():
         price = round(random.uniform(1.0, 3500.0), 2)
         date_time = fake.date_time_between(start_date='-10y', end_date='now')
         return [price, date_time.strftime('%Y-%m-%d %H:%M:%S'), country, wrong_city]
-
-#--------------------------------------------------------------
-# CSV file setup
-# Write to CSV
-# with open('E_Commerce_data_Victoria.csv', mode='w', newline='') as file:
-#     writer = csv.writer(file)
-#     # Write header
-#     writer.writerow(['Price', 'Date', 'Country', 'City'])
-#     # Write data rows
-#     writer.writerows(data)
-# print(f"Generated {nums_rows} rows of e-commerce data with {rogue_count} rogue entries.")
 
 #--------------------------------------------------------------
 # Main function to generate data
@@ -117,6 +93,16 @@ def main():
     for row in data[:10]:  # only print the first 10
         print(row)
     print(f"\nTotal records: {len(data)} (including {rogue_count} rogue records)\n")
+
+    # Create CSV file
+    with open('E_Commerce_data_Victoria.csv', mode='w', newline='', encoding = 'utf-8') as file:
+        writer = csv.writer(file)
+        # Write header
+        writer.writerow(['Date', 'Country', 'City'])
+        # Write data rows
+        writer.writerows(data)
+    print(f"Generated {nums_rows} rows of e-commerce data with {rogue_count} rogue entries.")
+
 
 if __name__ == "__main__":
     main()
