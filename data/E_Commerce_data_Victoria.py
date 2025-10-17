@@ -53,22 +53,19 @@ def create_rogue_record():
     if rtype == 'bad_date':
         # Date that is in the future
         date_time = fake.date_time_between(start_date='-10y', end_date='now') + timedelta(days=365*30)
-        price = round(random.uniform(1.0, 3500.0), 2)
-        return [price, date_time.strftime('%Y-%m-%d %H:%M:%S'), country, city]
+        return [date_time.strftime('%Y-%m-%d %H:%M:%S'), country, city]
     
     elif rtype == 'wrong_country':
         # Country that doesn’t match the city (or even exist in dataset)
         wrong_country = fake.country()
-        price = round(random.uniform(1.0, 3500.0), 2)
         date_time = fake.date_time_between(start_date='-10y', end_date='now')
-        return [price, date_time.strftime('%Y-%m-%d %H:%M:%S'), wrong_country, city]
+        return [date_time.strftime('%Y-%m-%d %H:%M:%S'), wrong_country, city]
     
     elif rtype == 'wrong_city':
         # City that isn’t real or doesn’t match the country
         wrong_city = fake.city()
-        price = round(random.uniform(1.0, 3500.0), 2)
         date_time = fake.date_time_between(start_date='-10y', end_date='now')
-        return [price, date_time.strftime('%Y-%m-%d %H:%M:%S'), country, wrong_city]
+        return [date_time.strftime('%Y-%m-%d %H:%M:%S'), country, wrong_city]
 
 #--------------------------------------------------------------
 # Main function to generate data
