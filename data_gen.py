@@ -60,12 +60,12 @@ def main():
     idx = random.randint(0,len(df) - 1)
     col = random.choice(df.columns)
     if col == "order_id":
-      df.at[idx, col] = random.choice([None])
+      df.at[idx, col] = random.choice([-1])
     elif col == "customer_id":
-      df.at[idx, col] = random.choice([None])
+      df.at[idx, col] = random.choice([-1])
     elif col =="customer_name":
       df.at[idx, col] = random.choice(["",None,"Undefined", "N/A","?"])
-    elif col =="prodcut_id":
+    elif col =="product_id":
       df.at[idx, col] = random.choice([None])
     elif col == "product_name":
       df.at[idx, col] = random.choice(["",None,"???","@#%","Unknown"])
