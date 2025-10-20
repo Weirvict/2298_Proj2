@@ -1,8 +1,8 @@
 import pandas as pd
 
-df1 = pd.read_csv(r"\Users\kevin\.vscode\Python_Examples\Python_activity_2\project_2\fake_orders.csv")
-df2 = pd.read_csv(r"\Users\kevin\.vscode\Python_Examples\Python_activity_2\project_2\E_Commerce_data_Victoria.csv",on_bad_lines="skip")
-df3 = pd.read_csv(r"\Users\kevin\.vscode\Python_Examples\Python_activity_2\project_2\generated_data.csv")
+df1 = pd.read_csv(r"fake_orders.csv")
+df2 = pd.read_csv(r"E_Commerce_data_Victoria.csv")
+df3 = pd.read_csv(r"generated_data.csv")
 
 
 
