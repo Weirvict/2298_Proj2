@@ -39,6 +39,8 @@ df = df.withColumn("city", trim(col("city")))
 # Incase misspelling happens
 valid_countries = ["CANADA", "FRANCE", "GERMANY", "GREAT BRITAIN", "MEXICO", "UNITED STATES"]
 df_clean_country = df.filter(col("country").isin(valid_countries))
+
+# Calculate Rogue data
 math = 15000-df_clean_country.count()
 print(f"Rougue Country and City rows: {math}\n")
 #------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ p2_filtered = df.filter(
 # Drop duplicates
 p2_clean = p2_filtered.dropDuplicates()
 
-# Calculate rogue
+# Calculate Rogue data
 math2 = (15000 - p2_clean.count()) 
 print(f"Rogue quantity and product_id rows: {math2}\n")
 #------------------------------------------------------------------------------------------------------------------------------------------------
