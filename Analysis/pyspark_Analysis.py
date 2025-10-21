@@ -21,6 +21,9 @@ df = spark.read.format("csv")\
 
 df.printSchema()
 
+# Just use as comparison
+dfo = df
+
 # Country and City clean up
 
 # Make city and country names uppercase
@@ -44,6 +47,7 @@ countries.show(100, truncate=False)
 # Incase misspelling happens
 valid_countries = ["CANADA", "FRANCE", "GERMANY", "GREAT BRITAIN", "MEXICO", "UNITED STATES"]
 df_clean_country = df.filter(col("country").isin(valid_countries))
+print("Original rows: ", dfo.count())
 print("Rows before:", df.count())
 print("Rows after:", df_clean_country.count())
 
@@ -54,12 +58,6 @@ for c in valid_countries:
         .distinct() \
         .orderBy("city") \
         .show(100, truncate=False)
-
-# Price clean up
-df.select("price").show(10)
-
-
-
 
 # Stop the Spark session
 spark.stop()
