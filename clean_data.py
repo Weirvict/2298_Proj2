@@ -21,7 +21,7 @@ order_check = (
 
 if order_check.count() > 0:
     print("Bad order_id rows:", order_check.count())
-    order_check.show(truncate=False)
+    order_check.show(truncate=False) #Nothing will print out here.All good.
 
 before = df.count()
 df = df.join(order_check, on="order_id", how="left_anti")
@@ -105,10 +105,15 @@ cols_to_count = ["product_category","payment_txn_success","qty", "price", "datet
 
 for c in cols_to_count:
     print(f"\n================ VALUE COUNTS FOR {c.upper()} ================")
-    df.groupBy(c).count().orderBy(c).show(20, truncate=False)
+    df.groupBy(c).count().orderBy(c).show(10, truncate=False)
 #There is no weird items in product_category,so just check if is NULL.
 
 # for payment_txn_success, it has only"F"&"Y"
+df = df.withColumn(
+    "payment_txn_success",
+    regexp_replace(col("payment_txn_success"), "^F$", "N")
+)
+df.groupBy("payment_txn_success").count().show()
 
 before = df.count()
 df_clean = df.filter(
@@ -118,7 +123,7 @@ df_clean = df.filter(
     (col("qty").isNotNull()) & (col("qty") > 0) &
     (col("price").isNotNull()) & (col("price") > 0) &
     (col("datetime").isNotNull()) &
-    (col("payment_txn_success").isin("Y","F"))
+    (col("payment_txn_success").isin("Y","N"))
 )
 after = df_clean.count()
 print(f"Step3 removed: {before - after}, remaining: {after}")
@@ -127,4 +132,9 @@ print("-----------------------------------------------------------------------")
 print("Final Clean Count:", df_clean.count())
 print("-----------------------------------------------------------------------")
 
+# 4 === Save cleaned data to CSV ===
+# Save directly as one clean CSV file
+df_clean.toPandas().to_csv("/mnt/c/Users/xiuzh/2298_Proj2/clean_data.csv", index=False)
+print("✅ Clean CSV saved successfully as clean_data.csv")
 
+#install pandas once globally:sudo apt install python3-pandas -y
