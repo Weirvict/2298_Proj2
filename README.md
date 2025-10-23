@@ -1,4 +1,4 @@
-# 2298_Proj2
+# 2298 Proj2 — E-Commerce Data Analysis
 
 ## Overview
 
@@ -22,12 +22,17 @@ To simulate real-world data imperfections, each dataset includes <5% rogue recor
 
 - Python3 
   - Pandas
+  - Faker
 - PySpark
 - Power BI
 
-## How to Run the Project
+## Data Files
+- final_ecommerce_data.csv 
+  - The main mock dataset (~15,000 rows) containing  <5% erroneous data for testing cleaning logic.
+- clean_data_final
+  - The cleaned dataset (sourced from another team’s generated data) used for analysis and visualization.
 
-## Data Analysis
+## Data Analysis Objectives
 
 1. Top Selling Category of Items
 

@@ -11,7 +11,7 @@ sc = spark.sparkContext
 sc.setLogLevel("WARN")
 
 # Define directory path
-dir_path = "file:///mnt/c/Users/Victoria Weir/Revature/Training//proj2/2298_Proj2/analysis"
+dir_path = "file:///mnt/c/Users/Victoria Weir/Revature/Training/proj2/2298_Proj2/analysis"
 
 # Load CSV files into DataFrames
 df = spark.read.format("csv")\
