@@ -53,6 +53,8 @@ To simulate real-world data imperfections, each dataset includes <5% rogue recor
 - What times of day or days of the week see the most transactions?
 - How does this differ by country?
 
+### Link to the Presentation: https://docs.google.com/presentation/d/19KjqAKbSvGCLpq1NOwlf3TAlMHIUqbVJZUk1P6JP2l8/edit?usp=sharing
+
 ## Contributers
 
 Shashank Mallipeddi, Kevin Matthew, Victoria Weir, Xuizhen Yang
